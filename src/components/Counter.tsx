@@ -7,20 +7,15 @@ type CounterType = {
     minValue: number
     maxValue: number
     num: number,
-    callBack: (num: number) => void
+    incBtn: () => void
+    resBtn: () => void
 }
 
 export const Counter = (props: CounterType) => {
 
-    const incBtnHandler = () => {
-        if (props.num < props.maxValue) {
-            props.callBack(props.num + 1)
-        }
-    }
+    const incBtnHandler = () => props.incBtn()
 
-    const resetBtnHandler = () => {
-        props.callBack(0)
-    }
+    const resetBtnHandler = () => props.resBtn()
 
     return (
         <div className={s.body}>
