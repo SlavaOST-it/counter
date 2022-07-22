@@ -25,13 +25,13 @@ export const Counter = (props: CounterType) => {
                 <Button
                     title={'inc'}
                     callBack={incBtnHandler}
-                    className={`${s.inc}` + ' ' + `${s.btn}`}
+                    className={`${s.inc} + ' ' + ${s.btn}`}
                     disable={props.num === props.maxValue}
                 />
                 <Button
                     title={'reset'}
                     callBack={resetBtnHandler}
-                    className={`${s.reset}` + ' ' + `${s.btn}`}
+                    className={`${s.reset} + ' ' + ${s.btn}`}
                     disable={props.num === props.minValue}
                 />
             </div>
