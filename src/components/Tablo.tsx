@@ -1,7 +1,7 @@
 import React from 'react';
 
 type TabloType = {
-    title: number
+    title: string | number
     className: string
 }
 export const Tablo = (props: TabloType) => {
