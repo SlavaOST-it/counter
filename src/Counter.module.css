@@ -1,7 +1,14 @@
-.body {
+.app {
+    display: flex;
     justify-content: center;
     margin: 150px auto;
-    width: 350px;
+}
+
+.body {
+    justify-content: center;
+    margin-left: 50px;
+
+    width: 450px;
     height: 300px;
     background: #282c34;
     border-radius: 20px;
@@ -24,20 +31,74 @@
     font-weight: bold;
 }
 
-.btn {
+.error{
     display: flex;
+    justify-content: center;
+
+    color: red;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.btnDiv {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+
+}
+
+.btn {
     margin: 30px 20px 0;
     font-size: 20px;
     font-weight: bold;
+    padding: 10px 40px;
+    border-radius: 10px;
+}
 
+.btn:active {
+    transform: scale(0.85);
+    /* Scaling button to 0.98 to its original size */
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    /* Lowering the shadow */
 }
 
 .inc {
-    padding: 10px 40px;
-    border-radius: 10px;
+
 }
 
 .reset {
-    padding: 10px 40px;
-    border-radius: 10px;
+
+}
+
+.settingsBody {
+    display: flex;
+    flex-direction: column;
+
+    width: 450px;
+    height: 300px;
+    background: #282c34;
+    border-radius: 20px;
+}
+
+.inputDiv {
+margin: 0 auto;
+
+}
+
+.valueDiv {
+
+}
+
+.input {
+    border-radius: 5px;
+    width: 60px;
+    height: 30px;
+}
+
+.valueText {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+
+    margin-right: 20px;
 }
