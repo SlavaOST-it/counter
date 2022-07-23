@@ -1,62 +1,88 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import s from "./Counter.module.css"
 import {SettingsCounter} from "./components/SettingsCounter";
 
+
 function App() {
-    const minValue = 0
-    const maxValue = 5
+
+    let [minValue, setMinValue] = useState<number>(0)
+    let [maxValue, setMaxValue] = useState<number>(0)
+
+    let [error, setError] = useState<string>('')
 
     let [num, setNum] = useState<number>(minValue)
 
-    const [value, setValue] = useState(0)
-
-    useEffect(() => {
-        let valueAsString = localStorage.getItem('counterValue')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setNum(newValue)
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('counterValue', JSON.stringify(num))
-    }, [num])
+    // useEffect(() => {
+    //     let valueAsString = localStorage.getItem('counterValue')
+    //     if (valueAsString) {
+    //         let newValue = JSON.parse(valueAsString)
+    //         setNum(newValue)
+    //     }
+    // }, [])
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('counterValue', JSON.stringify(num))
+    // }, [num])
 
 
     // Логика для Counter
-    const incBtn = () => {
+
+    const incBtnCallback = () => {
         if (num < maxValue) {
             setNum(num + 1)
         }
     }
+
     const resBtn = () => {
-        setNum(0)
+        setNum(minValue)
     }
 
     // Логика для SettingsCounter
+    // const changeMinValue = () => {
+    //
+    //     if (minValue >= maxValue) {
+    //         setError('Error')
+    //     } else {
+    //         setNum(minValue)
+    //     }
+    // }
 
+    const setBtn = () => {
+        if (minValue >= maxValue) {
+            setError('Error')
+        } else {
+            setError('')
+            setNum(maxValue)
+            setNum(minValue)
+        }
 
+    }
 
 
     return (
         <div className={s.app}>
             <SettingsCounter
-                value={value}
-                setValue={setValue}
+                num={num}
                 minValue={minValue}
                 maxValue={maxValue}
+                setMinValue={setMinValue}
+                setMaxValue={setMaxValue}
+                setBtn={setBtn}
+                setError={setError}
+                // callBack={changeMinValue}
             />
 
 
-
             <Counter
+                num={num}
                 minValue={minValue}
                 maxValue={maxValue}
-                num={num}
-                incBtn={incBtn}
+
+                incBtnCallback={incBtnCallback}
                 resBtn={resBtn}
+                error={error}
             />
         </div>
     );
