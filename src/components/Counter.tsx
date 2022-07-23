@@ -7,21 +7,24 @@ type CounterType = {
     minValue: number
     maxValue: number
     num: number,
-    incBtn: () => void
+    incBtnCallback: (minValue: number) => void
     resBtn: () => void
+    error:string
 }
 
 export const Counter = (props: CounterType) => {
 
-    const incBtnHandler = () => props.incBtn()
+    const incBtnHandler = () => props.incBtnCallback(props.minValue)
 
     const resetBtnHandler = () => props.resBtn()
 
+    const inputTitle = props.error ? props.error : props.num
+    let messageError = <div></div>
     return (
         <div className={s.body}>
             <Tablo className={props.num < props.maxValue ? s.tablo : s.numRed}
-                   title={props.num}/>
-            <div className={s.btn}>
+                   title={inputTitle}/>
+            <div className={s.btnDiv}>
                 <Button
                     title={'inc'}
                     callBack={incBtnHandler}
