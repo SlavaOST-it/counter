@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import s from "./Counter.module.css"
@@ -14,17 +14,45 @@ function App() {
 
     let [num, setNum] = useState<number>(minValue)
 
-    // useEffect(() => {
-    //     let valueAsString = localStorage.getItem('counterValue')
-    //     if (valueAsString) {
-    //         let newValue = JSON.parse(valueAsString)
-    //         setNum(newValue)
-    //     }
-    // }, [])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('counterValue', JSON.stringify(num))
-    // }, [num])
+    //============ Use Effect for NUM ====================//
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('counterValue')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setNum(newValue)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('counterValue', JSON.stringify(num))
+    }, [num])
+
+    //======== UseEffect for MAX Value ======================//
+       useEffect(() => {
+        let valueAsString = localStorage.getItem('maxValue')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setMaxValue(newValue)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    }, [maxValue])
+
+    //======== UseEffect for MIN Value ======================//
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('minValue')
+        if (valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setMinValue(newValue)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('minValue', JSON.stringify(minValue))
+    }, [minValue])
+
 
 
     // Логика для Counter
@@ -40,18 +68,11 @@ function App() {
     }
 
     // Логика для SettingsCounter
-    // const changeMinValue = () => {
-    //
-    //     if (minValue >= maxValue) {
-    //         setError('Error')
-    //     } else {
-    //         setNum(minValue)
-    //     }
-    // }
+
 
     const setBtn = () => {
         if (minValue >= maxValue) {
-            setError('Error')
+            setError('Incorrect value!')
         } else {
             setError('')
             setNum(maxValue)
@@ -59,7 +80,6 @@ function App() {
         }
 
     }
-
 
     return (
         <div className={s.app}>
@@ -70,6 +90,7 @@ function App() {
                 setMinValue={setMinValue}
                 setMaxValue={setMaxValue}
                 setBtn={setBtn}
+                error={error}
                 setError={setError}
                 // callBack={changeMinValue}
             />
