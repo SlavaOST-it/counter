@@ -1,109 +1,127 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import s from "./Counter.module.css"
-import {SettingsCounter} from "./components/SettingsCounter";
+import {combineReducers, createStore} from "redux";
+import {
+    addErrorActionCreator,
+    changeMaxValueActionCreator,
+    changeMinValueActionCreator,
+    incrementValueActionCreator,
+    resetValueActionCreator,
+    settingsReducer
+} from "./reducer/settingsReducer";
+import {useDispatch, useSelector} from "react-redux";
 
+
+const rootReducer = combineReducers({
+    settings: settingsReducer
+})
+
+export const store = createStore(rootReducer)
+export type AppRootStateType = ReturnType<typeof rootReducer>
+// // @ts-ignore
+// window.store = store
 
 function App() {
 
-    let [minValue, setMinValue] = useState<number>(0)
-    let [maxValue, setMaxValue] = useState<number>(0)
 
-    let [error, setError] = useState<string>('')
+    const maxValue = useSelector<AppRootStateType, number>(state => state.settings.maxValue)
+    const minValue = useSelector<AppRootStateType, number>(state => state.settings.minValue)
+    const num = useSelector<AppRootStateType, number>(state => state.settings.num)
+    const error = useSelector<AppRootStateType, boolean>(state => state.settings.error)
+    const dispatch = useDispatch()
 
-    let [num, setNum] = useState<number>(minValue)
+    //============ Use Effect for NUM =======================//
+    // useEffect(() => {
+    //     let valueAsString = localStorage.getItem('counterValue')
+    //     if (valueAsString) {
+    //         let newValue = JSON.parse(valueAsString)
+    //         setNum(newValue)
+    //     }
+    // }, [])
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('counterValue', JSON.stringify(num))
+    // }, [num])
 
-    //============ Use Effect for NUM ====================//
-    useEffect(() => {
-        let valueAsString = localStorage.getItem('counterValue')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setNum(newValue)
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('counterValue', JSON.stringify(num))
-    }, [num])
 
     //======== UseEffect for MAX Value ======================//
-       useEffect(() => {
-        let valueAsString = localStorage.getItem('maxValue')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setMaxValue(newValue)
-        }
-    }, [])
+    // useEffect(() => {
+    //     let valueAsString = localStorage.getItem('maxValue')
+    //     if (valueAsString) {
+    //         let newValue = JSON.parse(valueAsString)
+    //         setMaxValue(newValue)
+    //     }
+    // }, [])
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    // }, [maxValue])
 
-    useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    }, [maxValue])
 
     //======== UseEffect for MIN Value ======================//
-    useEffect(() => {
-        let valueAsString = localStorage.getItem('minValue')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setMinValue(newValue)
+    // useEffect(() => {
+    //     let valueAsString = localStorage.getItem('minValue')
+    //     if (valueAsString) {
+    //         let newValue = JSON.parse(valueAsString)
+    //         setMinValue(newValue)
+    //     }
+    // }, [])
+    //
+    // useEffect(() => {
+    //     localStorage.setItem('minValue', JSON.stringify(minValue))
+    // }, [minValue])
+
+    const changeSetMaxValue = (event: ChangeEvent<HTMLInputElement>) => {
+        let a = (event.currentTarget.value)
+        let maxNum = parseInt(a)
+        dispatch(changeMaxValueActionCreator(maxNum))
+        if (maxNum <= minValue || minValue < 0 || maxNum <= 0) {
+            dispatch(addErrorActionCreator(true))
         }
-    }, [])
+        else {
+            dispatch(addErrorActionCreator(false))
+        }
+    }
 
-    useEffect(() => {
-        localStorage.setItem('minValue', JSON.stringify(minValue))
-    }, [minValue])
+    const changeSetMinValue = (event: ChangeEvent<HTMLInputElement>) => {
+        let a = (event.currentTarget.value)
+        let minNum = parseInt(a)
+        dispatch(changeMinValueActionCreator(minNum))
+        if (minNum < 0 || minNum >= maxValue) {
+            dispatch(addErrorActionCreator(true))
+        }
+        else {
+            dispatch(addErrorActionCreator(false))
+        }
 
+    }
 
-
-    // Логика для Counter
+    //======= Логика для Counter ===========================//
 
     const incBtnCallback = () => {
-        if (num < maxValue) {
-            setNum(num + 1)
-        }
+        dispatch(incrementValueActionCreator())
     }
 
     const resBtn = () => {
-        setNum(minValue)
+        dispatch(resetValueActionCreator())
     }
 
-    // Логика для SettingsCounter
-
-
-    const setBtn = () => {
-        if (minValue >= maxValue) {
-            setError('Incorrect value!')
-        } else {
-            setError('')
-            setNum(maxValue)
-            setNum(minValue)
-        }
-
-    }
 
     return (
         <div className={s.app}>
-            <SettingsCounter
-                num={num}
-                minValue={minValue}
-                maxValue={maxValue}
-                setMinValue={setMinValue}
-                setMaxValue={setMaxValue}
-                setBtn={setBtn}
-                error={error}
-                setError={setError}
-                // callBack={changeMinValue}
-            />
-
 
             <Counter
                 num={num}
                 minValue={minValue}
                 maxValue={maxValue}
+                error={error}
 
                 incBtnCallback={incBtnCallback}
                 resBtn={resBtn}
-                error={error}
+                onChangeSetMaxValue={changeSetMaxValue}
+                onChangeSetMinValue={changeSetMinValue}
             />
         </div>
     );
