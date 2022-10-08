@@ -14,54 +14,12 @@ import {AppRootStateType} from "./components/store/store";
 
 
 function App() {
-
-
     const maxValue = useSelector<AppRootStateType, number>(state => state.settings.maxValue)
     const minValue = useSelector<AppRootStateType, number>(state => state.settings.minValue)
     const num = useSelector<AppRootStateType, number>(state => state.settings.num)
     const error = useSelector<AppRootStateType, boolean>(state => state.settings.error)
     const dispatch = useDispatch()
 
-    //============ Use Effect for NUM =======================//
-    // useEffect(() => {
-    //     let valueAsString = localStorage.getItem('counterValue')
-    //     if (valueAsString) {
-    //         let newValue = JSON.parse(valueAsString)
-    //         setNum(newValue)
-    //     }
-    // }, [])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('counterValue', JSON.stringify(num))
-    // }, [num])
-
-
-    //======== UseEffect for MAX Value ======================//
-    // useEffect(() => {
-    //     let valueAsString = localStorage.getItem('maxValue')
-    //     if (valueAsString) {
-    //         let newValue = JSON.parse(valueAsString)
-    //         setMaxValue(newValue)
-    //     }
-    // }, [])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    // }, [maxValue])
-
-
-    //======== UseEffect for MIN Value ======================//
-    // useEffect(() => {
-    //     let valueAsString = localStorage.getItem('minValue')
-    //     if (valueAsString) {
-    //         let newValue = JSON.parse(valueAsString)
-    //         setMinValue(newValue)
-    //     }
-    // }, [])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('minValue', JSON.stringify(minValue))
-    // }, [minValue])
 
     const changeSetMaxValue = (event: ChangeEvent<HTMLInputElement>) => {
         let a = (event.currentTarget.value)
