@@ -2,13 +2,11 @@ import React, {ChangeEvent} from 'react';
 
 
 export type BlockValueType = {
-    spanClassName: string,
-    titleValue: string,
-
+    spanClassName: string
+    titleValue: string
     inputValue: number
     inputCallback: (event: ChangeEvent<HTMLInputElement>)=>void
     inputClassName: string
-
 }
 
 export const BlockValue = (props: BlockValueType) => {

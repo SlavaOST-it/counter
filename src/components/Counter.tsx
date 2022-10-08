@@ -9,11 +9,10 @@ type CounterType = {
     minValue: number
     maxValue: number
     error: boolean
-
-    num: number,
+    num: number
     incBtnCallback: () => void
     resBtn: () => void
-    onChangeSetMaxValue: (event: ChangeEvent<HTMLInputElement>) => void,
+    onChangeSetMaxValue: (event: ChangeEvent<HTMLInputElement>) => void
     onChangeSetMinValue: (event: ChangeEvent<HTMLInputElement>) => void
 }
 

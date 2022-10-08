@@ -1,7 +1,7 @@
 import React from "react";
 
 type ButtonType = {
-    title: string,
+    title: string
     callBack: () => void
     className: string
     disable: boolean
