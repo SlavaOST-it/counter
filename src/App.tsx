@@ -2,26 +2,16 @@ import React, {ChangeEvent} from 'react';
 import './App.css';
 import {Counter} from "./components/Counter";
 import s from "./Counter.module.css"
-import {combineReducers, createStore} from "redux";
 import {
     addErrorActionCreator,
     changeMaxValueActionCreator,
     changeMinValueActionCreator,
     incrementValueActionCreator,
-    resetValueActionCreator,
-    settingsReducer
-} from "./reducer/settingsReducer";
+    resetValueActionCreator
+} from "./components/bll/reducer/settingsReducer";
 import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./components/store/store";
 
-
-const rootReducer = combineReducers({
-    settings: settingsReducer
-})
-
-export const store = createStore(rootReducer)
-export type AppRootStateType = ReturnType<typeof rootReducer>
-// // @ts-ignore
-// window.store = store
 
 function App() {
 
