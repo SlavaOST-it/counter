@@ -1,7 +1,7 @@
 import React from 'react';
 
 type ScoreboardType = {
-    title: any
+    title: number
     className: string
 }
 export const Scoreboard = (props: ScoreboardType) => {
