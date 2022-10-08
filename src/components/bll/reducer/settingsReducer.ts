@@ -7,13 +7,8 @@ type AddErrorAT = ReturnType<typeof addErrorActionCreator>
 type ActionType = ChangeMaxValueAT | ChangeMinValueAT | IncrementValueAT | ResetValueAT | AddErrorAT
 
 
-type InitialStateType = {
-    maxValue: number,
-    minValue: number,
-    num: any,
-    error: boolean
+type InitialStateType = typeof initialState
 
-}
 const initialState = {
     maxValue: 0,
     minValue: 0,
